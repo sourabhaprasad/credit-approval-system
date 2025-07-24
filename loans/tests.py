@@ -5,7 +5,6 @@ from rest_framework import status
 from customers.models import Customer
 from loans.models import Loan
 
-
 class LoanTests(APITestCase):
     def setUp(self):
         self.customer = Customer.objects.create(
