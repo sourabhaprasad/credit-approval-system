@@ -106,7 +106,13 @@ ingest_data.delay()
 ```bash
 curl -X POST http://localhost:8000/api/customers/register/ \
 -H "Content-Type: application/json" \
--d '{"first_name": "Alice","last_name": "Smith","age": 28,"monthly_income": 80000,"phone_number": "9876543215"}'
+-d '{
+  "first_name": "Alice",
+  "last_name": "Smith",
+  "age": 28,
+  "monthly_income": 80000,
+  "phone_number": "9876543215"
+}'
 ```
 
 ---
@@ -139,6 +145,19 @@ curl -X POST http://localhost:8000/api/customers/register/ \
 }
 ```
 
+**Example CURL:**
+
+```bash
+curl -X POST http://localhost:8000/api/loans/check-eligibility/ \
+-H "Content-Type: application/json" \
+-d '{
+  "customer_id": 302,
+  "loan_amount": 200000,
+  "interest_rate": 10,
+  "tenure": 12
+}'
+```
+
 ---
 
 ### **3. Create Loan**
@@ -168,6 +187,19 @@ curl -X POST http://localhost:8000/api/customers/register/ \
 }
 ```
 
+**Example CURL:**
+
+```bash
+curl -X POST http://localhost:8000/api/loans/create-loan/ \
+-H "Content-Type: application/json" \
+-d '{
+  "customer_id": 302,
+  "loan_amount": 200000,
+  "interest_rate": 10,
+  "tenure": 12
+}'
+```
+
 ---
 
 ### **4. View Loan**
@@ -193,6 +225,12 @@ curl -X POST http://localhost:8000/api/customers/register/ \
 }
 ```
 
+**Example CURL:**
+
+```bash
+curl -X GET http://localhost:8000/api/loans/view-loan/1/
+```
+
 ---
 
 ### **5. View All Loans for a Customer**
@@ -211,6 +249,12 @@ curl -X POST http://localhost:8000/api/customers/register/ \
     "repayments_left": 12
   }
 ]
+```
+
+**Example CURL:**
+
+```bash
+curl -X GET http://localhost:8000/api/loans/view-loans/302/
 ```
 
 ---
@@ -250,5 +294,3 @@ docker-compose exec web python manage.py test
 - Data ingestion from Excel via Celery tasks
 - PostgreSQL persistence
 - Dockerized setup (single docker-compose up to run all services)
-
----
