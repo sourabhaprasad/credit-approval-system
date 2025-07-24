@@ -20,7 +20,7 @@ A backend service for managing **customer credit approvals**, **loan eligibility
 ### **1. Clone the repository**
 
 ```bash
-git clone https://github.com/<your-username>/credit-approval-system.git
+git clone https://github.com/sourabhaprasad/credit-approval-system.git
 cd credit-approval-system
 ```
 
