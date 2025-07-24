@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+venv/
+
+# Django
+*.log
+*.pot
+*.pyc
+*.py[cod]
+db.sqlite3
+local_settings.py
+
+# Env
+.env
+*.env
+
+# IDEs
+.vscode/
+.idea/
+
+# Docker
+postgres_data/
