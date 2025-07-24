@@ -3,7 +3,6 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from customers.models import Customer
 
-
 class CustomerTests(APITestCase):
     def test_register_customer(self):
         url = reverse('register-customer')
