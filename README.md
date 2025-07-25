@@ -50,7 +50,14 @@ This starts:
 ### **Database Migrations**
 
 ```bash
+docker-compose exec web python manage.py makemigrations
 docker-compose exec web python manage.py migrate
+```
+
+### **Fix Sequences**
+
+```bash
+docker-compose exec web python manage.py fix_sequences
 ```
 
 ### **Data Ingestion**
