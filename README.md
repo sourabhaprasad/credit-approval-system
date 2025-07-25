@@ -333,6 +333,120 @@ docker-compose exec web python manage.py test
 
 ---
 
+## Edge Cases
+
+### **1. Invalid `customer_id` during Loan Eligibility Check**
+
+```bash
+curl -X POST http://localhost:8000/api/loans/check-eligibility/ \
+-H "Content-Type: application/json" \
+-d '{
+  "customer_id": 9999,
+  "loan_amount": 200000,
+  "interest_rate": 10,
+  "tenure": 12
+}'
+```
+
+**Expected Response (Example):**
+
+```json
+{
+  "error": "Customer not found."
+}
+```
+
+---
+
+### **2. Negative Loan Amount**
+
+```bash
+curl -X POST http://localhost:8000/api/loans/check-eligibility/ \
+-H "Content-Type: application/json" \
+-d '{
+  "customer_id": 301,
+  "loan_amount": -50000,
+  "interest_rate": 10,
+  "tenure": 12
+}'
+```
+
+**Expected Response (Example):**
+
+```json
+{
+  "error": "loan_amount must be greater than 0."
+}
+```
+
+---
+
+### **3. Negative or Zero Tenure**
+
+```bash
+curl -X POST http://localhost:8000/api/loans/check-eligibility/ \
+-H "Content-Type: application/json" \
+-d '{
+  "customer_id": 301,
+  "loan_amount": 100000,
+  "interest_rate": 10,
+  "tenure": 0
+}'
+```
+
+**Expected Response (Example):**
+
+```json
+{
+  "error": "tenure must be greater than 0"
+}
+```
+
+---
+
+### **4. Loan Amount Exceeding 50% EMI Limit**
+
+```bash
+curl -X POST http://localhost:8000/api/loans/check-eligibility/ \
+-H "Content-Type: application/json" \
+-d '{
+  "customer_id": 301,
+  "loan_amount": 5000000,
+  "interest_rate": 12,
+  "tenure": 12
+}'
+```
+
+**Expected Response (Example):**
+
+```json
+{
+  "customer_id": 301,
+  "approval": false,
+  "interest_rate": 12.0,
+  "corrected_interest_rate": 12.0,
+  "tenure": 12,
+  "monthly_installment": 444243.94,
+  "reason": "EMI exceeds 50% of monthly salary"
+}
+```
+
+---
+
+### **5. Non-Existing Loan ID in View Loan**
+
+```bash
+curl -X GET http://localhost:8000/api/loans/view-loan/999/
+```
+
+**Expected Response (Example):**
+
+```json
+{
+  "error": "No loan matches the given query."
+}
+```
+
 ## **Docker Services**
 
 - **web** – Django API service
