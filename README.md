@@ -146,7 +146,7 @@ ingest_data.delay()
 
 ```json
 {
-  "customer_id": 302,
+  "customer_id": 301,
   "first_name": "Alice",
   "last_name": "Smith",
   "age": 28,
@@ -181,7 +181,7 @@ curl -X POST http://localhost:8000/api/customers/register/ \
 
 ```json
 {
-  "customer_id": 302,
+  "customer_id": 301,
   "loan_amount": 200000,
   "interest_rate": 10,
   "tenure": 12
@@ -192,7 +192,7 @@ curl -X POST http://localhost:8000/api/customers/register/ \
 
 ```json
 {
-  "customer_id": 302,
+  "customer_id": 301,
   "approval": true,
   "interest_rate": 10,
   "corrected_interest_rate": 10,
@@ -207,7 +207,7 @@ curl -X POST http://localhost:8000/api/customers/register/ \
 curl -X POST http://localhost:8000/api/loans/check-eligibility/ \
 -H "Content-Type: application/json" \
 -d '{
-  "customer_id": 302,
+  "customer_id": 301,
   "loan_amount": 200000,
   "interest_rate": 10,
   "tenure": 12
@@ -224,7 +224,7 @@ curl -X POST http://localhost:8000/api/loans/check-eligibility/ \
 
 ```json
 {
-  "customer_id": 302,
+  "customer_id": 301,
   "loan_amount": 200000,
   "interest_rate": 10,
   "tenure": 12
@@ -236,7 +236,7 @@ curl -X POST http://localhost:8000/api/loans/check-eligibility/ \
 ```json
 {
   "loan_id": 1,
-  "customer_id": 302,
+  "customer_id": 301,
   "loan_approved": true,
   "message": "Loan approved",
   "monthly_installment": 17583.18
@@ -249,7 +249,7 @@ curl -X POST http://localhost:8000/api/loans/check-eligibility/ \
 curl -X POST http://localhost:8000/api/loans/create-loan/ \
 -H "Content-Type: application/json" \
 -d '{
-  "customer_id": 302,
+  "customer_id": 301,
   "loan_amount": 200000,
   "interest_rate": 10,
   "tenure": 12
@@ -268,7 +268,7 @@ curl -X POST http://localhost:8000/api/loans/create-loan/ \
 {
   "loan_id": 1,
   "customer": {
-    "customer_id": 302,
+    "customer_id": 301,
     "first_name": "Alice",
     "last_name": "Smith",
     "phone_number": "9876543215",
@@ -310,7 +310,7 @@ curl -X GET http://localhost:8000/api/loans/view-loan/1/
 **Example CURL:**
 
 ```bash
-curl -X GET http://localhost:8000/api/loans/view-loans/302/
+curl -X GET http://localhost:8000/api/loans/view-loans/301/
 ```
 
 ---
