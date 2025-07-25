@@ -26,7 +26,7 @@ cd credit-approval-system
 
 ### **2. Environment Variables**
 
-Create a .env file:
+Create a `.env` file:
 
 ```
 POSTGRES_DB=creditdb
@@ -34,7 +34,56 @@ POSTGRES_USER=credituser
 POSTGRES_PASSWORD=creditpass
 ```
 
-### **3. Start Services**
+---
+
+## **3. Start Services (Automated)**
+
+We have automated the setup steps (starting services, running migrations, fixing sequences, and initial data ingestion) using an **`init.sh`** script.
+
+Run:
+
+```bash
+bash init.sh
+```
+
+This script will:
+
+- Start all services (Django API, PostgreSQL, Redis, Celery Worker)
+- Apply database migrations
+- Fix database sequences
+- Run initial data ingestion via Celery (from `customer_data.xlsx` and `loan_data.xlsx`)
+- Test the `/api/customers/register/` API with a sample customer
+
+**Expected output:**
+
+- **API response:**
+
+  ```json
+  {
+    "customer_id": 1,
+    "first_name": "Init",
+    "last_name": "Test",
+    "age": 25,
+    "phone_number": "9999999999",
+    "monthly_salary": 50000,
+    "approved_limit": 1800000,
+    "current_debt": 0.0
+  }
+  ```
+
+- **Final message:**
+
+  ```
+  >>> Setup completed successfully!
+  ```
+
+---
+
+## **4. Manual Setup (Optional)**
+
+If you prefer to run the steps manually:
+
+### **Start Services**
 
 ```bash
 docker-compose up --build
@@ -62,7 +111,7 @@ docker-compose exec web python manage.py fix_sequences
 
 ### **Data Ingestion**
 
-The initial customer_data.xlsx and loan_data.xlsx files are ingested via Celery:
+The initial `customer_data.xlsx` and `loan_data.xlsx` files are ingested via Celery:
 
 ```bash
 docker-compose exec web python manage.py shell
@@ -286,10 +335,10 @@ docker-compose exec web python manage.py test
 
 ## **Docker Services**
 
-- web – Django API service
-- db – PostgreSQL
-- redis – Redis broker for Celery
-- worker – Celery background worker
+- **web** – Django API service
+- **db** – PostgreSQL
+- **redis** – Redis broker for Celery
+- **worker** – Celery background worker
 
 ---
 
@@ -300,4 +349,4 @@ docker-compose exec web python manage.py test
 - Automatic Interest Rate Correction based on credit score slab
 - Data ingestion from Excel via Celery tasks
 - PostgreSQL persistence
-- Dockerized setup (single docker-compose up to run all services)
+- Dockerized setup (single `docker-compose up` to run all services)
